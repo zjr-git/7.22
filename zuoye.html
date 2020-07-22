@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       .box{
+           width: 100%;
+           height: 100%;
+           position: absolute;
+           background:url(./1.jpg);
+       }
+       /* .bigan{
+           width: 70px;
+           height: 30px;
+           position: relative;
+           margin: 0 auto;
+           margin-top: 600px;
+           border: 1px solid blue;
+           text-align: center;
+           background-color: blue;
+           box-shadow: 3px 3px 3px blue;
+           cursor: pointer;
+       } */
+    </style>
+</head>
+<body>
+    <div class="box">
+    <!-- <div class="bigan">开始游戏</div> -->
+</div>
+    <script>
+
+      window.onload=function(){
+        var letters=["A","B","C","D","D","F","G","H"];
+        var divs=[];
+        function create(num){
+            var current=[];
+        for(var i=0;i<num;i++){
+            current.push(letters[Math.floor(letters.length*Math.random())]);//0-1
+        }
+        
+        for(var i=0;i<current.length;i++){
+            var div=document.createElement("div");
+            div.innerHTML=current[i];
+            div.style.cssText="position:absolute;left:"+document.documentElement.clientWidth*Math.random()+"px;top:"+(40*Math.random())+"px;font-size:"+5+10*Math.random()+"px";
+            "background:red"
+            document.body.appendChild(div);
+            divs.push(div);
+        }
+    }
+create(3);
+        var speed=5;
+        setInterval(function(){
+            for(i=0;i<divs.length;i++){
+                divs[i].style.top=divs[i].offsetTop+speed+"px";
+                if(divs[i].offsetTop>400){
+                    divs[i].style.display="none"
+                    alert("游戏失败")
+                }
+            }
+        },50)
+
+        document.onkeydown=function(ev){
+            var letter=String.fromCharCode(ev.keyCode);
+            for(i=0;i<divs.length;i++){
+                if(divs[i].innerHTML==letter){
+                    document.body.removeChild(divs[i]);
+                    divs.splice(i,1);
+                    create(1)
+                    
+                    break;
+                }
+            }
+        }
+
+        
+        var bigan=document.querySelector("div");
+        bigan.onclick =function(){
+            letters.style.display="block"
+        }
+    }
+    </script>
+</body>
+</html>
